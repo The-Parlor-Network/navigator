@@ -1,0 +1,26 @@
+name: Navigator
+version: '${project.version}'
+main: dev.clxud.navigator.Plugin
+api-version: 1.19
+prefix: NV
+load: STARTUP
+authors: [ cloudwithax ]
+depend: [PlaceholderAPI]
+description: Navigate your servers with ease
+
+commands:
+  servers:
+    description: Show the server selector GUI
+    usage: /<command>
+
+  anarchy:
+    description: Connect to the anarchy server
+    usage: /<command>
+
+  smp:
+    description: Connect to the smp server
+    usage: /<command>
+
+  modded:
+    description: Connect to the modded server
+    usage: /<command>
