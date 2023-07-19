@@ -21,8 +21,8 @@ public class ServerSelector {
 
     private Plugin plugin;
 
-    private String smpTitle = "&b&lSMP";
-    private String smpDescription = "&6The classic Minecraft survival experience, revived.";
+    private String survivalTitle = "&b&lSurvival";
+    private String survivalDescription = "&6The classic Minecraft survival experience, revived.";
     private String skyblockTitle = "&a&lSkyblock";
     private String skyblockDescription = "&6One island, one tree, one mission. Can you survive?";
 
@@ -44,8 +44,8 @@ public class ServerSelector {
     public String getPlayersOnlineLore(String server) {
         String fmtPlayerCountLore;
         switch (server) {
-            case "smp":
-                fmtPlayerCountLore = "&7%bungee_smp% &7players online";
+            case "survival":
+                fmtPlayerCountLore = "&7%bungee_survival% &7players online";
                 break;
             case "skyblock":
                 fmtPlayerCountLore = "&7%bungee_skyblock% &7players online";
@@ -63,11 +63,27 @@ public class ServerSelector {
 
 
     public void sendToServer(Player player, String server) {
+
+        switch (server) {
+            case "survival":
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Connecting to &bSurvival&7..."));
+                break;
+
+            case "skyblock":
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Connecting to &aSkyblock&7..."));
+                break;
+
+            case "minigames":
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Connecting to &9Minigames&7..."));
+                break;
+        }
+
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Connect");
         out.writeUTF(server);
 
         player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+
     }
 
 
@@ -124,7 +140,7 @@ public class ServerSelector {
             setInventoryItem(serverSelectorView, size, Material.LIGHT_GRAY_STAINED_GLASS_PANE, "&r", false);
         }
 
-        setInventoryItem(serverSelectorView, 11, Material.DIAMOND_PICKAXE, smpTitle, smpDescription, getPlayersOnlineLore("smp"), true);
+        setInventoryItem(serverSelectorView, 11, Material.DIAMOND_PICKAXE, survivalTitle, survivalDescription, getPlayersOnlineLore("smp"), true);
         setInventoryItem(serverSelectorView, 13, Material.OAK_SAPLING, skyblockTitle, skyblockDescription, getPlayersOnlineLore("skyblock"), true);
         setInventoryItem(serverSelectorView, 15, Material.BLAZE_POWDER, miniGamesTitle, miniGamesDescription,  getPlayersOnlineLore("minigames"), true);
         player.openInventory(serverSelectorView);
@@ -134,17 +150,14 @@ public class ServerSelector {
 
         switch (item.getType()) {
             case DIAMOND_PICKAXE:
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Connecting to &bSMP&7..."));
-                this.sendToServer(player, "smp");
+                this.sendToServer(player, "survival");
                 break;
 
             case OAK_SAPLING:
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Connecting to &aSkyblock&7..."));
                 this.sendToServer(player, "skyblock");
                 break;
 
             case BLAZE_POWDER:
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Connecting to &9Minigames&7..."));
                 this.sendToServer(player, "minigames");
                 break;
 

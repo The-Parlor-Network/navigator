@@ -13,14 +13,6 @@ commands:
     description: Show the server selector GUI
     usage: /<command>
 
-  anarchy:
-    description: Connect to the anarchy server
-    usage: /<command>
-
-  smp:
-    description: Connect to the smp server
-    usage: /<command>
-
-  modded:
-    description: Connect to the modded server
-    usage: /<command>
+  goto:
+    description: Go to a server
+    usage: /<command> <server>

@@ -30,8 +30,10 @@ public class OnItemInteractEvent implements Listener {
 
         if (!player.getGameMode().equals(GameMode.CREATIVE)) {
             if (item != null && item.getType() == Material.COMPASS) {
-                event.setCancelled(true);
-                ss.openGUI(player);
+                if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                    event.setCancelled(true);
+                    ss.openGUI(player);
+                }
             }
         }
 

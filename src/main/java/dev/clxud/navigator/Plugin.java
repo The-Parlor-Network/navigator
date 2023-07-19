@@ -1,13 +1,11 @@
 package dev.clxud.navigator;
 
-import dev.clxud.navigator.commands.AnarchyCommand;
-import dev.clxud.navigator.commands.ModdedCommand;
-import dev.clxud.navigator.commands.SMPCommand;
+import dev.clxud.navigator.commands.GotoCommand;
+import dev.clxud.navigator.commands.GotoTabCompleter;
 import dev.clxud.navigator.commands.ServersCommand;
 import dev.clxud.navigator.events.*;
 import dev.clxud.navigator.utils.InventorySerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -50,10 +48,10 @@ public final class Plugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnJoinEvent(this), this);
         getServer().getPluginManager().registerEvents(new OnGamemodeChange(this), this);
         getServer().getPluginManager().registerEvents(new OnLeaveEvent(this), this);
+        getServer().getPluginManager().registerEvents(new OnItemDropEvent(this), this);
         getCommand("servers").setExecutor(new ServersCommand(this));
-        getCommand("anarchy").setExecutor(new AnarchyCommand(this));
-        getCommand("smp").setExecutor(new SMPCommand(this));
-        getCommand("modded").setExecutor(new ModdedCommand(this));
+        getCommand("goto").setExecutor(new GotoCommand(this));
+        getCommand("goto").setTabCompleter(new GotoTabCompleter());
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getLogger().info("Navigator has been loaded!");
     }
